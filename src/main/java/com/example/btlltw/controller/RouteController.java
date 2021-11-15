@@ -17,7 +17,7 @@ public class RouteController {
     private RouteService routeService;
 
     @GetMapping(params = "id")
-    public ResponseEntity<Route> getRouteById(@RequestParam(name = "id") int id){
+    public ResponseEntity<?> getRouteById(@RequestParam(name = "id") int id){
         return new ResponseEntity<>(routeService.getRouteById(id), HttpStatus.OK);
     }
 
@@ -37,5 +37,10 @@ public class RouteController {
     public ResponseEntity<?> deleteRouteById(@RequestParam(name = "id") int id){
         routeService.deleteRouteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllRoute(){
+        return new ResponseEntity<>(routeService.getAllRoute(), HttpStatus.OK);
     }
 }

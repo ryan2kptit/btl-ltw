@@ -15,6 +15,8 @@ import com.example.btlltw.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TourServiceImpl implements TourService {
     @Autowired
@@ -67,5 +69,9 @@ public class TourServiceImpl implements TourService {
         if(exitTour == null) throw new NotFoundException();
         tourRepository.deleteById(id);
         return true;
+    }
+
+    public List<Tour> getAllTour() {
+        return tourRepository.findAll();
     }
 }

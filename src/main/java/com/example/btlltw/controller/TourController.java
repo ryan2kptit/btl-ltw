@@ -42,4 +42,9 @@ public class TourController {
         tourService.deleteTourById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllTour(){
+        return new ResponseEntity<>(tourService.getAllTour(), HttpStatus.OK);
+    }
 }

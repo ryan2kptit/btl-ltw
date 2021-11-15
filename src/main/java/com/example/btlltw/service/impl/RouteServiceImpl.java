@@ -8,6 +8,8 @@ import com.example.btlltw.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RouteServiceImpl implements RouteService {
     @Autowired
@@ -21,7 +23,10 @@ public class RouteServiceImpl implements RouteService {
     }
 
     public Route getRouteById(int id){
-        return routeRepository.getById(id);
+        System.out.println(id);
+        Route r =  routeRepository.getById(id);
+        System.out.println(r);
+        return r;
     }
 
     public Route updateRouteById(int id, Route route) {
@@ -36,5 +41,9 @@ public class RouteServiceImpl implements RouteService {
         if(exitRoute == null) throw new NotFoundException();
         routeRepository.deleteById(id);
         return true;
+    }
+
+    public List<Route> getAllRoute() {
+        return routeRepository.findAll();
     }
 }

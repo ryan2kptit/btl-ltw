@@ -1,5 +1,6 @@
 package com.example.btlltw.controller;
 
+import com.example.btlltw.dto.GetAllDriver;
 import com.example.btlltw.entity.Driver;
 import com.example.btlltw.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/drivers")
@@ -36,5 +40,10 @@ public class DriverController {
     public ResponseEntity<?> deleteDriverById(@RequestParam(name = "id") int id){
         driverService.deleteDriverById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public  List<Driver> getAllDriver(){
+        return driverService.getAllDriver();
     }
 }

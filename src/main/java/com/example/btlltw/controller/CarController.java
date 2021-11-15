@@ -19,7 +19,14 @@ public class CarController {
 
     @GetMapping(params = "id")
     public ResponseEntity<Car> getCarById(@RequestParam(name = "id") int id){
-        return new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
+        ResponseEntity c = new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
+        System.out.println(c);
+        return c;
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllCar(){
+        return new ResponseEntity<>(carService.getAllCar(), HttpStatus.OK);
     }
 
     @PostMapping

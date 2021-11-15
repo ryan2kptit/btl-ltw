@@ -9,6 +9,8 @@ import com.example.btlltw.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -45,5 +47,9 @@ public class CarServiceImpl implements CarService {
         if(exitCar == null) throw new NotFoundException();
         carRepository.delete(exitCar);
         return true;
+    }
+
+    public List<Car> getAllCar() {
+        return carRepository.findAll();
     }
 }
