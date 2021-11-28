@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
@@ -19,9 +20,7 @@ public class CarController {
 
     @GetMapping(params = "id")
     public ResponseEntity<Car> getCarById(@RequestParam(name = "id") int id){
-        ResponseEntity c = new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
-        System.out.println(c);
-        return c;
+       return new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
     }
 
     @GetMapping()
@@ -43,6 +42,7 @@ public class CarController {
 
     @DeleteMapping(params = "id")
     public ResponseEntity<?> deleteCarById(@RequestParam(name = "id") int id){
+        System.out.println(id);
         carService.deleteCarById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

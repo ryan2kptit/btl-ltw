@@ -15,9 +15,11 @@ import com.example.btlltw.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class TourServiceImpl implements TourService {
     @Autowired
     private TourRepository tourRepository;
@@ -39,8 +41,12 @@ public class TourServiceImpl implements TourService {
         if(route == null) throw new NotFoundException();
         Driver mainDriver = driverService.getDriverById(tour.getMainDriver_id());
         if(mainDriver == null) throw new NotFoundException();
+        mainDriver.setStatus(1);
+        driverService.updateDriver(mainDriver);
         Driver extraDriver = driverService.getDriverById(tour.getExtraDriver_id());
         if(extraDriver == null ) throw new NotFoundException();
+        extraDriver.setStatus(2);
+        driverService.updateDriver(extraDriver);
         Tour t = new Tour();
         t.setPriceOfTicket(tour.getPriceOfTicket());
         t.setNumberOfGuest(tour.getNumberOfGuest());
@@ -57,10 +63,30 @@ public class TourServiceImpl implements TourService {
         return tourRepository.getById(id);
     }
 
-    public Tour updateTourById(int id, Tour tour) {
-        Tour exitTour = tourRepository.getById(id);
-        if(exitTour == null) throw new NotFoundException();
-        Tour updateTour = tourRepository.save(tour);
+    public Tour updateTourById(int id, CreateTourDto tour) {
+        Tour existTour = tourRepository.getById(id);
+        System.out.println(existTour + "0000000000");
+        if(existTour == null) throw new NotFoundException();
+        existTour.setPriceOfTicket(tour.getPriceOfTicket());
+        existTour.setNumberOfGuest(tour.getNumberOfGuest());
+        Car car = carService.getCarById(tour.getCar_id());
+        if(car == null) throw new NotFoundException();
+        Route route = routeService.getRouteById(tour.getRoute_id());
+        if(route == null) throw new NotFoundException();
+        Driver mainDriver = driverService.getDriverById(tour.getMainDriver_id());
+        if(mainDriver == null) throw new NotFoundException();
+        mainDriver.setStatus(1);
+        driverService.updateDriver(mainDriver);
+        Driver extraDriver = driverService.getDriverById(tour.getExtraDriver_id());
+        if(extraDriver == null ) throw new NotFoundException();
+        extraDriver.setStatus(2);
+        driverService.updateDriver(extraDriver);
+        existTour.setCar(car);
+        existTour.setRoute(route);
+        existTour.setMainDriver(mainDriver);
+        existTour.setExtraDriver(extraDriver);
+        System.out.println(existTour);
+        Tour updateTour = tourRepository.save(existTour);
         return updateTour;
     }
 
@@ -73,5 +99,25 @@ public class TourServiceImpl implements TourService {
 
     public List<Tour> getAllTour() {
         return tourRepository.findAll();
+    }
+
+    public Boolean deleteAllByCar(Car car) {
+        try{
+            tourRepository.deleteAllByCar(car);
+            System.out.println("+++=================");
+            return true;
+        } catch (NullPointerException e){
+            throw e;
+        }
+    }
+
+    public Boolean deleteAllByRoute(Route route) {
+        try{
+            tourRepository.deleteAllByRoute(route);
+            System.out.println("+++=================");
+            return true;
+        } catch (NullPointerException e){
+            throw e;
+        }
     }
 }

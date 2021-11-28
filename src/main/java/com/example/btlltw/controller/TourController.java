@@ -32,7 +32,7 @@ public class TourController {
     }
 
     @PutMapping(params = "id")
-    public ResponseEntity<?> updateTourById(@RequestParam(name = "id") int id, @Valid @RequestBody Tour body){
+    public ResponseEntity<?> updateTourById(@RequestParam(name = "id") int id, @Valid @RequestBody CreateTourDto body){
         final Tour updatedTour = tourService.updateTourById(id, body);
         return new ResponseEntity<>(updatedTour, HttpStatus.OK);
     }

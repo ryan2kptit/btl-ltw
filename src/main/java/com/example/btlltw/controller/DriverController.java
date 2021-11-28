@@ -20,7 +20,7 @@ public class DriverController {
     private DriverService driverService;
 
     @GetMapping(params = "id")
-    public ResponseEntity<Driver> getDriverById(@RequestParam(name = "id") int id){
+    public ResponseEntity<?> getDriverById(@RequestParam(name = "id") int id){
         return new ResponseEntity<>(driverService.getDriverById(id), HttpStatus.OK);
     }
 

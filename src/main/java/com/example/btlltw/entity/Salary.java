@@ -1,6 +1,7 @@
 package com.example.btlltw.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,14 +14,15 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Salary implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "salaryOfMainDriver")
-    private int salaryOfMainDriver;
+    @Column(name = "index")
+    private int index;
 
-    @Column(name = "salaryOfExtraDriver")
-    private int salaryOfExtraDriver;
+    @Column(name = "name")
+    private String name;
 }

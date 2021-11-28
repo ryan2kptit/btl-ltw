@@ -1,5 +1,6 @@
 package com.example.btlltw.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Driver implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,9 @@ public class Driver implements Serializable {
 
     @Column(name = "cmt")
     private String cmt;
+
+    @Column(name = "status")
+    private int status;
 
     @Column(name = "license")
     private String license;
@@ -41,3 +46,4 @@ public class Driver implements Serializable {
     @Column(name = "seniority")
     private int seniority;
 }
+

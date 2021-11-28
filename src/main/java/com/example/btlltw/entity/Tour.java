@@ -1,5 +1,6 @@
 package com.example.btlltw.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Tour implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +26,19 @@ public class Tour implements Serializable {
     @Column(name = "numberOfGuest")
     private int numberOfGuest;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="car_id")
     private Car car;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="route_id")
     private Route route;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="mainDriver_id")
     private Driver mainDriver;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="extraDriver_id")
     private Driver extraDriver;
 }

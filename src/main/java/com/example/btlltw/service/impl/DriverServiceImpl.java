@@ -8,11 +8,13 @@ import com.example.btlltw.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class DriverServiceImpl implements DriverService {
     @Autowired
     private DriverRepository driverRepository;
@@ -28,6 +30,10 @@ public class DriverServiceImpl implements DriverService {
         return driverRepository.getById(id);
     }
 
+    public Driver updateDriver(Driver driver){
+        return driverRepository.save(driver);
+    }
+
     public Driver updateDriverById(int id, Driver driver) {
         Driver exitDriver = driverRepository.getById(id);
         if(exitDriver == null) throw new NotFoundException();
@@ -38,7 +44,7 @@ public class DriverServiceImpl implements DriverService {
         exitDriver.setSeniority(driver.getSeniority());
         exitDriver.setTypeOfLicense(driver.getTypeOfLicense());
         exitDriver.setBirth(driver.getBirth());
-        Driver updateDriver = driverRepository.save(driver);
+        Driver updateDriver = driverRepository.save(exitDriver);
         return updateDriver;
     }
 
@@ -50,9 +56,9 @@ public class DriverServiceImpl implements DriverService {
     }
 
     public  List<Driver> getAllDriver() {
-        System.out.println("Heloooooooooooooo");
-        List<Driver> drivers = driverRepository.getAllDriver();
-        System.out.println(drivers);
-        return drivers;
+//        System.out.println("Heloooooooooooooo");
+//        List<Driver> drivers = driverRepository.getAllDriver();
+//        System.out.println(drivers);
+        return driverRepository.findAll();
     }
 }

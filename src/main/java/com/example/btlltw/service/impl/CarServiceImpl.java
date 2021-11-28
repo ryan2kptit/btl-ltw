@@ -3,22 +3,29 @@ package com.example.btlltw.service.impl;
 import com.example.btlltw.dto.CreateCarDto;
 import com.example.btlltw.entity.Car;
 import com.example.btlltw.exception.NotFoundException;
-import com.example.btlltw.mapper.CarMapper;
 import com.example.btlltw.repository.CarRepository;
 import com.example.btlltw.service.CarService;
+import com.example.btlltw.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
 @Service
+@Transactional
 public class CarServiceImpl implements CarService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private TourService tourService;
+
     public Car getCarById(int id){
-        return carRepository.getCarById(id);
+        Car car =  carRepository.getCarById(id);
+        if(car == null) throw new NotFoundException();
+        return car;
     }
 
     public Car createCar(Car body) {
@@ -43,9 +50,12 @@ public class CarServiceImpl implements CarService {
     }
 
     public Boolean deleteCarById(int id) {
-        Car exitCar = carRepository.getCarById(id);
-        if(exitCar == null) throw new NotFoundException();
-        carRepository.delete(exitCar);
+        Car existCar = carRepository.getCarById(id);
+        if(existCar == null) throw new NotFoundException();
+        System.out.println("99999999999");
+        Boolean tour = tourService.deleteAllByCar(existCar);
+        System.out.println("00000000000");
+        carRepository.deleteById(id);
         return true;
     }
 
