@@ -15,4 +15,8 @@ public interface DriverService {
     List<Driver> getAllDriver();
 
     Driver updateDriver(Driver driver);
+
+    List<Driver> getExtraDriver();
+
+    List<Driver> getMainDriver();
 }

@@ -41,5 +41,5 @@ public class Car implements Serializable {
     private String amountOfSeat;
 
     @Column(name = "lastMaintainDay", nullable = true)
-    private String lastMaintainDay;
+    private Date lastMaintainDay;
 }

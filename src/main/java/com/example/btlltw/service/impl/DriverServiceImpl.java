@@ -56,9 +56,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     public  List<Driver> getAllDriver() {
-//        System.out.println("Heloooooooooooooo");
-//        List<Driver> drivers = driverRepository.getAllDriver();
-//        System.out.println(drivers);
         return driverRepository.findAll();
+    }
+
+    public List<Driver> getExtraDriver(){
+        return driverRepository.getExtraDriver();
+    }
+
+    public List<Driver> getMainDriver(){
+        return driverRepository.getMainDriver();
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -25,6 +26,9 @@ public class Tour implements Serializable {
 
     @Column(name = "numberOfGuest")
     private int numberOfGuest;
+
+    @Column(name = "date")
+    private Date date;
 
     @ManyToOne()
     @JoinColumn(name="car_id")

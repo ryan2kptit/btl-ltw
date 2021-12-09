@@ -20,8 +20,8 @@ public class Salary implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "index")
-    private int index;
+    @Column(name = "indexMoney")
+    private int indexMoney;
 
     @Column(name = "name")
     private String name;

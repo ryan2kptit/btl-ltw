@@ -18,5 +18,9 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
             "             on r.id = t.route_id) a on a.main_driver_id = d.id;", nativeQuery = true)
     List<Driver> getAllDriver();
 
+    @Query(value = "select * from driver d inner join ( select t.extra_driver_id, r.complexity, t.date from tour t inner join route r on t.route_id = r.id group by t.id) a on a.extra_driver_id = d.id group by d.id;", nativeQuery = true)
+    List<Driver> getExtraDriver();
 
+    @Query(value = "select * from driver d inner join ( select t.main_driver_id, r.complexity, t.date from tour t inner join route r on t.route_id = r.id group by t.id) a on a.main_driver_id = d.id group by d.id;", nativeQuery = true)
+    List<Driver> getMainDriver();
 }
