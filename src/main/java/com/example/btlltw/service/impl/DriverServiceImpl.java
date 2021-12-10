@@ -5,6 +5,7 @@ import com.example.btlltw.entity.Driver;
 import com.example.btlltw.exception.NotFoundException;
 import com.example.btlltw.repository.DriverRepository;
 import com.example.btlltw.service.DriverService;
+import com.example.btlltw.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ import java.util.List;
 public class DriverServiceImpl implements DriverService {
     @Autowired
     private DriverRepository driverRepository;
+
+    @Autowired
+    private TourService tourService;
 
     public Driver createDriver(Driver driver) {
         System.out.println(driver);
@@ -50,7 +54,9 @@ public class DriverServiceImpl implements DriverService {
 
     public Boolean deleteDriverById(int id) {
         Driver exitDriver = driverRepository.getById(id);
+        System.out.println(exitDriver + "))))))))))))");
         if(exitDriver == null) throw new NotFoundException();
+        tourService.deleteAllByDriver(exitDriver);
         driverRepository.deleteById(id);
         return true;
     }

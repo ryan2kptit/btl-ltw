@@ -2,6 +2,7 @@ package com.example.btlltw.service;
 
 import com.example.btlltw.dto.CreateTourDto;
 import com.example.btlltw.entity.Car;
+import com.example.btlltw.entity.Driver;
 import com.example.btlltw.entity.Route;
 import com.example.btlltw.entity.Tour;
 
@@ -21,4 +22,6 @@ public interface TourService {
     Boolean deleteAllByCar(Car car);
 
     Boolean deleteAllByRoute(Route route);
+
+    Boolean deleteAllByDriver(Driver driver);
 }

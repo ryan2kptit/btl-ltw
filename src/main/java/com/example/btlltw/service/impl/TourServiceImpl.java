@@ -69,12 +69,16 @@ public class TourServiceImpl implements TourService {
         if(existTour == null) throw new NotFoundException();
         existTour.setPriceOfTicket(tour.getPriceOfTicket());
         existTour.setNumberOfGuest(tour.getNumberOfGuest());
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
         Car car = carService.getCarById(tour.getCar_id());
         if(car == null) throw new NotFoundException();
+        System.out.println(car + "fffffffffffffffffffffff");
         Route route = routeService.getRouteById(tour.getRoute_id());
         if(route == null) throw new NotFoundException();
+        System.out.println(route + "hhhhhhhhhhhhhhhhh");
         Driver mainDriver = driverService.getDriverById(tour.getMainDriver_id());
         if(mainDriver == null) throw new NotFoundException();
+        System.out.println(mainDriver + "77777777777777777777");
         mainDriver.setStatus(1);
         driverService.updateDriver(mainDriver);
         Driver extraDriver = driverService.getDriverById(tour.getExtraDriver_id());
@@ -85,7 +89,7 @@ public class TourServiceImpl implements TourService {
         existTour.setRoute(route);
         existTour.setMainDriver(mainDriver);
         existTour.setExtraDriver(extraDriver);
-        System.out.println(existTour);
+        System.out.println(existTour + "8888888888888888888888888888");
         Tour updateTour = tourRepository.save(existTour);
         return updateTour;
     }
@@ -114,6 +118,17 @@ public class TourServiceImpl implements TourService {
     public Boolean deleteAllByRoute(Route route) {
         try{
             tourRepository.deleteAllByRoute(route);
+            System.out.println("+++=================");
+            return true;
+        } catch (NullPointerException e){
+            throw e;
+        }
+    }
+
+    public Boolean deleteAllByDriver(Driver driver) {
+        try{
+            tourRepository.deleteAllByExtraDriver(driver);
+            tourRepository.deleteAllByMainDriver(driver);
             System.out.println("+++=================");
             return true;
         } catch (NullPointerException e){
