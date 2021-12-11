@@ -64,9 +64,9 @@ public class SalaryServiceImpl implements SalaryService {
         }
         List<SalaryStatisticDto> salaryStatisticDtoList = new ArrayList<>();
         for (RouteAndMainDriverDto element : listMain) {
-            SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
             for (RouteAndMainDriverDto item : listExtra) {
                 if (element.getDriver().getId() == item.getDriver().getId()) {
+                    SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
                     salaryStatisticDto.setSalary(element.getComplexity() + item.getComplexity());
                     salaryStatisticDto.setDriver(element.getDriver());
                     salaryStatisticDtoList.add(salaryStatisticDto);
@@ -74,32 +74,44 @@ public class SalaryServiceImpl implements SalaryService {
                 }
             }
         }
-            System.out.println(listMain.size());
+
+        System.out.println(salaryStatisticDtoList + "3333333333");
+            System.out.println(listMain + "main");
             List<SalaryStatisticDto> newSalaryStatistic = new ArrayList<>();
             for (RouteAndMainDriverDto element : listMain) {
+                int k=0;
                 for (SalaryStatisticDto item : salaryStatisticDtoList) {
-                    if (element.getDriver().getId() != item.getDriver().getId()) {
-                        SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
-                        salaryStatisticDto.setSalary(element.getComplexity());
-                        salaryStatisticDto.setDriver(element.getDriver());
-                        newSalaryStatistic.add(salaryStatisticDto);
+                    if (element.getDriver().getId() == item.getDriver().getId()) {
+                        k =1;
+                        System.out.println(element.getDriver().getId() + "  " + item.getDriver().getId());
+                    }
+                }
+                if(k == 0) {
+                    SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
+                    salaryStatisticDto.setSalary(element.getComplexity());
+                    salaryStatisticDto.setDriver(element.getDriver());
+                    newSalaryStatistic.add(salaryStatisticDto);
+                }
+            }
+        System.out.println(listExtra + "extra");
+            for (RouteAndMainDriverDto element : listExtra) {
+                int k=0;
+                for (SalaryStatisticDto item : salaryStatisticDtoList) {
+                    if (element.getDriver().getId() == item.getDriver().getId()) {
+                        k = 1;
 
                     }
                 }
-            }
-
-            for (RouteAndMainDriverDto element : listExtra) {
-                for (SalaryStatisticDto item : salaryStatisticDtoList) {
-                    if (element.getDriver().getId() != item.getDriver().getId()) {
-                        SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
-                        salaryStatisticDto.setSalary(element.getComplexity());
-                        salaryStatisticDto.setDriver(element.getDriver());
-                        newSalaryStatistic.add(salaryStatisticDto);
-                    }
+                if(k ==0 ){
+                    SalaryStatisticDto salaryStatisticDto = new SalaryStatisticDto();
+                    salaryStatisticDto.setSalary(element.getComplexity());
+                    salaryStatisticDto.setDriver(element.getDriver());
+                    newSalaryStatistic.add(salaryStatisticDto);
                 }
             }
             System.out.println(salaryStatisticDtoList);
             salaryStatisticDtoList.addAll(newSalaryStatistic);
+        System.out.println(newSalaryStatistic);
             return salaryStatisticDtoList;
         }
 
